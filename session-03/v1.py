@@ -171,6 +171,76 @@ def group_anagrams(words):
     return list(group.values())
 
 # print(group_anagrams(["eat","tea","tan","ate","nat","bat"]))
-print(''.join(sorted('ate')))
+# print(''.join(sorted('ate')))
 
 # time complexity : O(n * k log k) where n is the number of words and k is the maximum length of a word
+
+
+# medium : top k frequent elements : EPAM/ oracle/ Databricks/Tiger analytics
+
+# Return the k most frequent values. 
+# First build value → count. Then organize values by their counts.
+
+
+# example 1 : input = [1,1,1,2,2,3], k = 2
+# Output: [1, 2]
+
+# example 2 : input = [1,1,1,2,2,3], k = 1
+# Output: [1]
+
+# example 3 : input = [1,1,1,2,2,3], k = 3
+# Output: [1, 2, 3]
+
+# dont skip this one
+def top_k_frequent(nums, k):
+    freq = {}
+
+    # occurance of char
+    for num in nums:
+        freq[num] = freq.get(num, 0) + 1
+
+    sorted_freq = sorted(freq.items(), key=lambda x: x[1], reverse=True)
+    # pick the top k
+    result = []
+    for i in range(min(k, len(sorted_freq))):
+        result.append(sorted_freq[i][0])
+    return result
+
+
+# print(top_k_frequent([1,1,1,2,2,3,34], 2))  # Output: [1, 2]
+
+# Hard : Subarray Sum Equals K
+
+
+# Count the number of continuous subarrays whose sum equals k.
+
+# example 1:
+# Input: nums = [1,1,1], k = 2
+# Output: 2
+# Explanation: The subarrays are [1,1] (from index 0 to 1) and [1,1] (from index 1 to 2).
+
+# example 2:
+# Input: nums = [1,2,3], k = 3
+# Output: 2
+# Explanation: The subarrays are [1,2] (from index 0 to 1) and [3] (from index 2 to 2).
+
+# example 3:
+# Input: nums = [1], k = 0
+# Output: 0
+# Explanation: There are no subarrays that sum to 0.
+
+def subarray_sum(num,k):
+    prefix_count = {0:1}
+    prefix = 0
+    answer = 0
+    for n in num:
+        prefix += n
+        needed = prefix - k
+        answer += prefix_count.get(needed, 0)
+        prefix_count[prefix] = prefix_count.get(prefix, 0) + 1
+
+    return answer
+
+print(subarray_sum([1,1,1], 2))  # Output: 2
+print(subarray_sum([1,2,-1], 3))  # Output: 2
+print(subarray_sum([1], 0))  # Output: 0
