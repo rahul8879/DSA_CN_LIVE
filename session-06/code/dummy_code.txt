@@ -1,0 +1,22 @@
+class Node{
+
+    value = value
+    next = null
+}
+
+
+class stack {
+    first = null
+    last = null
+    size = 0
+
+    def addAtBeg(value){
+
+
+    }
+
+    removeFromBegin(){
+
+        
+    }
+}
